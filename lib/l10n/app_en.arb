@@ -1,0 +1,409 @@
+{
+  "@@locale": "en",
+
+  "appName": "C-AlgoVisualizer",
+  "@appName": { "description": "Application name" },
+
+  "appTitle": "C-AlgoVisualizer | Learn C & Algorithms Visually",
+  "@appTitle": { "description": "Full browser/app title" },
+
+  "welcome": "Welcome to C-AlgoVisualizer",
+  "@welcome": { "description": "Welcome heading" },
+
+  "subtitle": "Learn C programming and algorithms with interactive visualizations",
+  "@subtitle": { "description": "App subtitle / tagline" },
+
+  "editor": "Editor",
+  "@editor": { "description": "Editor tab/screen label" },
+
+  "editorHint": "Write your C code here",
+  "@editorHint": { "description": "Editor placeholder hint" },
+
+  "visualizer": "Visualizer",
+  "@visualizer": { "description": "Visualizer panel label" },
+
+  "curriculum": "Curriculum",
+  "@curriculum": { "description": "Curriculum nav label" },
+
+  "courses": "Courses",
+  "@courses": {},
+
+  "lessons": "Lessons",
+  "@lessons": {},
+
+  "run": "Run",
+  "@run": {},
+
+  "runCode": "Run Code",
+  "@runCode": {},
+
+  "stop": "Stop",
+  "@stop": {},
+
+  "reset": "Reset",
+  "@reset": {},
+
+  "clear": "Clear",
+  "@clear": {},
+
+  "step": "Step",
+  "@step": {},
+
+  "stepBy": "Step By Step",
+  "@stepBy": {},
+
+  "next": "Next",
+  "@next": {},
+
+  "previous": "Previous",
+  "@previous": {},
+
+  "play": "Play",
+  "@play": {},
+
+  "pause": "Pause",
+  "@pause": {},
+
+  "stepCount": "Step {count}",
+  "@stepCount": {
+    "description": "Current step counter",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "variables": "Variables",
+  "@variables": {},
+
+  "stack": "Stack",
+  "@stack": {},
+
+  "heap": "Heap",
+  "@heap": {},
+
+  "memory": "Memory",
+  "@memory": {},
+
+  "output": "Output",
+  "@output": {},
+
+  "console": "Console",
+  "@console": {},
+
+  "input": "Input",
+  "@input": {},
+
+  "stdin": "Standard Input",
+  "@stdin": {},
+
+  "stdout": "Standard Output",
+  "@stdout": {},
+
+  "stderr": "Standard Error",
+  "@stderr": {},
+
+  "error": "Error",
+  "@error": {},
+
+  "warning": "Warning",
+  "@warning": {},
+
+  "success": "Success",
+  "@success": {},
+
+  "info": "Info",
+  "@info": {},
+
+  "errorOccurred": "An error occurred",
+  "@errorOccurred": {},
+
+  "tryAgain": "Try Again",
+  "@tryAgain": {},
+
+  "goBack": "Go Back",
+  "@goBack": {},
+
+  "loading": "Loading...",
+  "@loading": {},
+
+  "initializing": "Initializing...",
+  "@initializing": {},
+
+  "executing": "Executing...",
+  "@executing": {},
+
+  "compiling": "Compiling...",
+  "@compiling": {},
+
+  "settings": "Settings",
+  "@settings": {},
+
+  "theme": "Theme",
+  "@theme": {},
+
+  "darkMode": "Dark Mode",
+  "@darkMode": {},
+
+  "lightMode": "Light Mode",
+  "@lightMode": {},
+
+  "language": "Language",
+  "@language": {},
+
+  "fontSize": "Font Size",
+  "@fontSize": {},
+
+  "fontSizeSmall": "Small",
+  "@fontSizeSmall": {},
+
+  "fontSizeMedium": "Medium",
+  "@fontSizeMedium": {},
+
+  "fontSizeLarge": "Large",
+  "@fontSizeLarge": {},
+
+  "about": "About",
+  "@about": {},
+
+  "aboutText": "C-AlgoVisualizer is an educational platform for learning C programming and algorithms with interactive visualizations.",
+  "@aboutText": {},
+
+  "version": "Version {version}",
+  "@version": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+
+  "save": "Save",
+  "@save": {},
+
+  "saved": "Saved",
+  "@saved": {},
+
+  "saveProgress": "Save Progress",
+  "@saveProgress": {},
+
+  "saveSuccess": "Progress saved successfully",
+  "@saveSuccess": {},
+
+  "saveFailed": "Failed to save progress",
+  "@saveFailed": {},
+
+  "unsavedChanges": "You have unsaved changes",
+  "@unsavedChanges": {},
+
+  "login": "Login",
+  "@login": {},
+
+  "logout": "Logout",
+  "@logout": {},
+
+  "signIn": "Sign In",
+  "@signIn": {},
+
+  "signOut": "Sign Out",
+  "@signOut": {},
+
+  "linkGoogle": "Link with Google",
+  "@linkGoogle": {},
+
+  "unlinkGoogle": "Unlink Google Account",
+  "@unlinkGoogle": {},
+
+  "anonymousUser": "Anonymous User",
+  "@anonymousUser": {},
+
+  "syncData": "Sync Data",
+  "@syncData": {},
+
+  "noData": "No data available",
+  "@noData": {},
+
+  "noResults": "No results found",
+  "@noResults": {},
+
+  "empty": "Empty",
+  "@empty": {},
+
+  "emptyState": "Nothing here yet",
+  "@emptyState": {},
+
+  "confirmAction": "Confirm Action",
+  "@confirmAction": {},
+
+  "areYouSure": "Are you sure?",
+  "@areYouSure": {},
+
+  "confirm": "Confirm",
+  "@confirm": {},
+
+  "cancel": "Cancel",
+  "@cancel": {},
+
+  "delete": "Delete",
+  "@delete": {},
+
+  "deleteConfirm": "Are you sure you want to delete this?",
+  "@deleteConfirm": {},
+
+  "curriculumTitle": "Curriculum",
+  "@curriculumTitle": {},
+
+  "curriculumSubtitle": "Master C programming with our structured learning path",
+  "@curriculumSubtitle": {},
+
+  "module": "Module",
+  "@module": {},
+
+  "moduleCount": "{count} modules",
+  "@moduleCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "difficulty": "Difficulty",
+  "@difficulty": {},
+
+  "difficultyBeginner": "Beginner",
+  "@difficultyBeginner": {},
+
+  "difficultyIntermediate": "Intermediate",
+  "@difficultyIntermediate": {},
+
+  "difficultyAdvanced": "Advanced",
+  "@difficultyAdvanced": {},
+
+  "progress": "Progress",
+  "@progress": {},
+
+  "completion": "Completion",
+  "@completion": {},
+
+  "lessonsCompleted": "{completed}/{total} lessons completed",
+  "@lessonsCompleted": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "syntaxError": "Syntax Error",
+  "@syntaxError": {},
+
+  "runtimeError": "Runtime Error",
+  "@runtimeError": {},
+
+  "compilationError": "Compilation Error",
+  "@compilationError": {},
+
+  "segmentationFault": "Segmentation Fault",
+  "@segmentationFault": {},
+
+  "codeSyntax": "Code Syntax",
+  "@codeSyntax": {},
+
+  "codeCompletion": "Code Completion",
+  "@codeCompletion": {},
+
+  "autoIndent": "Auto Indent",
+  "@autoIndent": {},
+
+  "lineNumbers": "Line Numbers",
+  "@lineNumbers": {},
+
+  "highlightSyntax": "Syntax Highlighting",
+  "@highlightSyntax": {},
+
+  "wordWrap": "Word Wrap",
+  "@wordWrap": {},
+
+  "cModule": "C Module",
+  "@cModule": {},
+
+  "basicModule": "Basics",
+  "@basicModule": {},
+
+  "variablesModule": "Variables & Types",
+  "@variablesModule": {},
+
+  "operatorsModule": "Operators",
+  "@operatorsModule": {},
+
+  "controlFlowModule": "Control Flow",
+  "@controlFlowModule": {},
+
+  "functionsModule": "Functions",
+  "@functionsModule": {},
+
+  "arraysModule": "Arrays & Strings",
+  "@arraysModule": {},
+
+  "pointersModule": "Pointers",
+  "@pointersModule": {},
+
+  "dynamicMemoryModule": "Dynamic Memory",
+  "@dynamicMemoryModule": {},
+
+  "structsModule": "Structs & Unions",
+  "@structsModule": {},
+
+  "fileIOModule": "File I/O",
+  "@fileIOModule": {},
+
+  "advancedModule": "Advanced Topics",
+  "@advancedModule": {},
+
+  "sortingVisualizer": "Sorting Visualizer",
+  "@sortingVisualizer": {},
+
+  "arrayLength": "Array Length",
+  "@arrayLength": {},
+
+  "arrayLengthHint": "Enter array length (1-100)",
+  "@arrayLengthHint": {},
+
+  "speed": "Speed",
+  "@speed": {},
+
+  "speedSlow": "Slow",
+  "@speedSlow": {},
+
+  "speedMedium": "Medium",
+  "@speedMedium": {},
+
+  "speedFast": "Fast",
+  "@speedFast": {},
+
+  "bubbleSort": "Bubble Sort",
+  "@bubbleSort": {},
+
+  "selectionSort": "Selection Sort",
+  "@selectionSort": {},
+
+  "insertionSort": "Insertion Sort",
+  "@insertionSort": {},
+
+  "mergeSort": "Merge Sort",
+  "@mergeSort": {},
+
+  "quickSort": "Quick Sort",
+  "@quickSort": {},
+
+  "networkError": "Network Error",
+  "@networkError": {},
+
+  "offlineMode": "Offline Mode",
+  "@offlineMode": {},
+
+  "syncPending": "Sync Pending",
+  "@syncPending": {},
+
+  "lastSyncedAt": "Last synced at {time}",
+  "@lastSyncedAt": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  }
+}

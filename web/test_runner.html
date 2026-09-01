@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <pre id="out" style="white-space:pre-wrap;font-size:11px;"></pre>
+    <script>
+        const s = document.createElement('script');
+        s.src = 'c_runner.js?t=' + Date.now();
+        s.onload = function () {
+            const el = document.getElementById('out');
+            function log(x) { el.textContent += x + '\n'; }
+
+            const code = `#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int *arr = malloc(16);
+    arr[0] = 10;
+    arr[1] = 20;
+    printf("%d %d\\n", arr[0], arr[1]);
+    free(arr);
+    return 0;
+}`;
+
+            const r = window.CRunner.run(code);
+            log('run: success=' + r.success + ' stdout=' + JSON.stringify(r.stdout));
+            if (!r.success) log('err: ' + r.stderr.split('\n')[2]);
+
+            const t = window.CRunner.trace(code);
+            log('trace: steps=' + t.steps.length);
+            t.steps.forEach((s, i) => {
+                if (s.heap && s.heap.length > 0) {
+                    log('step' + i + ' line=' + s.line + ' HEAP=' + JSON.stringify(s.heap));
+                }
+            });
+            if (t.steps.every(s => !s.heap || s.heap.length === 0)) log('No heap blocks found in any step');
+        };
+        document.head.appendChild(s);
+    </script>
+</body>
+
+</html>
