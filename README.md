@@ -1,5 +1,7 @@
 # C AlgoVisualizer
 
+> 🌐 **Live-Web-App:** [C-AlgoVisualizer](https://c-algovisualizer.web.app/)
+
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)
 ![WebAssembly](https://img.shields.io/badge/WebAssembly-Wasm-654FF0?logo=webassembly&logoColor=white)
@@ -11,14 +13,14 @@
 
 ## 1. Projektübersicht & Kernwert
 
-**C AlgoVisualizer** ist eine browserbasierte Lernplattform, die die konzeptuelle Lücke zwischen abstrakter C-Speicherverwaltung und interaktivem, visuell gestütztem Verständnis schließt. Das System ermöglicht es, beliebigen C-Quellcode direkt im Browser zu verfassen, auszuführen und Schritt für Schritt zu inspizieren – vollständig clientseitig, ohne serverseitige Recheninfrastruktur.
+**C AlgoVisualizer** ist eine interaktive Web-Plattform, die Entwicklern und Studierenden dabei hilft, die oft unübersichtliche Speicherverwaltung in C intuitiv zu begreifen. Quellcode lässt sich direkt im Browser schreiben, ausführen und im Detail analysieren, und das vollständig clientseitig ohne jede Server-Infrastruktur.
 
-Die zentrale Herausforderung: C-Konzepte wie Zeiger-Arithmetik (*pointer arithmetic*), Stack-vs.-Heap-Allokation, Speicherlayout (*memory layout*) und Lebenszyklusverwaltung (*lifecycle management*) sind für Lernende abstrakt und fehleranfällig. C AlgoVisualizer löst dieses Problem durch eine **sichere WebAssembly-Sandbox**, die C-Code tokenisiert, kompiliert und zur Laufzeit in ein strukturiertes Ausführungsmodell überführt. Der Zustand jedes Schritts – Call-Stack-Frames, Heap-Blöcke, lokale Variablen, I/O-Ausgabe – wird in Echtzeit als interaktive Flutter-Widgets gerendert.
+Die Motivation hinter dem Projekt: Kernkonzepte wie Zeigerarithmetik (*pointer arithmetic*), die Aufteilung zwischen Stack und Heap, das genaue Speicherlayout (*memory layout*) sowie der Lebenszyklus von Variablen sind in C elementar, aber oft schwer greifbar. C AlgoVisualizer überbrückt diese Lücke mit einer **sicheren WebAssembly-Sandbox**. Der eingegebene C-Code wird direkt im Browser analysiert, ausgeführt und in ein nachvollziehbares Modell überführt. Jeder Einzelschritt mit Call Stack Frames, dynamischen Heap-Blöcken, lokalen Variablen und Konsolenausgaben wird in Echtzeit über Flutter-Widgets synchron visualisiert.
 
-**Kernwert auf einen Blick:**
-- 🔒 **100 % clientseitige Ausführung** – C-Code läuft isoliert im Browser; kein Backend-Compute-Overhead, keine Sicherheitsrisiken durch serverseitige Code-Ausführung.
-- 🧠 **Didaktisch durchdacht** – Schritt-für-Schritt-Debugging mit synchronisierter Quellcode-Hervorhebung, Call-Stack-Inspektion und dynamischer Heap-Visualisierung.
-- 🏗 **Produktionstaugliche Architektur** – Feature-First / Clean Architecture, reaktive Zustandsverwaltung mit Riverpod, vollständige Trennung von Fachlogik, Anwendungsschicht und Präsentation.
+**Die wichtigsten Mehrwerte im Überblick:**
+- 🔒 **Vollständig clientseitig**: Der C-Code läuft isoliert im Browser ab, was jegliche Serverkosten einspart und Sicherheitsrisiken serverseitiger Codeausführung von vornherein ausschließt.
+- 🧠 **Didaktisch fundiert**: Detailliertes Einzelschritt-Debugging mit synchroner Code-Hervorhebung, Stack-Inspektion und einer dynamischen Ansicht des Heaps.
+- 🏗 **Saubere Architektur**: Konsequenter Feature-First-Ansatz auf Basis von Clean Architecture, reaktives State Management mit Riverpod sowie eine klare Trennung von Domänenlogik und Benutzeroberfläche.
 
 ---
 
@@ -26,16 +28,16 @@ Die zentrale Herausforderung: C-Konzepte wie Zeiger-Arithmetik (*pointer arithme
 
 ### 2.1 Architekturentscheidungen
 
-Das Projekt folgt dem **Feature-First**-Ansatz innerhalb eines Clean-Architecture-Rahmens. Jedes Feature kapselt seine Domänenmodelle, Anwendungslogik und Präsentationsschicht vollständig und ist somit unabhängig wartbar und testbar. Die Zustandsverwaltung basiert auf **Riverpod `StateNotifier`**-Klassen, die reaktiv auf UI-Ereignisse reagieren und Zustandstransitionen deterministisch und nachvollziehbar gestalten.
+Das Projekt strukturiert sich modular nach dem **Feature-First**-Muster innerhalb einer klassischen Clean Architecture. Jedes Feature kapselt seine Domänenmodelle, Anwendungslogik und Widgets eigenständig, was die Codebasis übersichtlich, gut testbar und leicht erweiterbar hält. Für die Zustandsverwaltung kommen **Riverpod `StateNotifier`**-Klassen zum Einsatz, wodurch alle Zustandsübergänge im System deterministisch und nachvollziehbar bleiben.
 
-**Schlüsselprinzipien:**
-- **Separation of Concerns**: Domänenmodelle (`ExecutionStep`, `HeapBlock`, `StackFrame`) kennen weder Flutter noch den JavaScript-Interop-Layer.
-- **Plattformabstraktion via Conditional Imports**: Die Brücke zwischen Dart und dem nativen Laufzeitsystem (`c_runner_bridge.dart`) wird zur Compile-Zeit durch plattformspezifische Implementierungen (`_web.dart` / `_stub.dart`) ersetzt. Der Rest der Codebasis bleibt plattformagnostisch.
-- **Unveränderliche Zustandsmodelle**: Alle Zustandsklassen sind immutable und verwenden `copyWith`-Muster, was unerwartete Seiteneffekte verhindert und die Nachvollziehbarkeit von Zustandsübergängen sicherstellt.
+**Zentrale Leitlinien:**
+- **Separation of Concerns**: Domänenmodelle wie `ExecutionStep`, `HeapBlock` oder `StackFrame` bleiben vollkommen frei von UI-Code oder JavaScript-Details.
+- **Plattformabstraktion über Conditional Imports**: Die Brücke zwischen Dart und der WebAssembly-Laufzeitumgebung (`c_runner_bridge.dart`) wird beim Kompilieren über plattformspezifische Dateien (`_web.dart` und `_stub.dart`) aufgelöst. Der Rest der Anwendung bleibt dadurch plattformunabhängig.
+- **Unveränderliche Datenstrukturen**: Alle Zustandsobjekte sind immutable und nutzen das `copyWith`-Muster. Das verhindert unerwünschte Nebeneffekte und macht das Verhalten der Anwendung stabil.
 
 ### 2.2 Die Ausführungsbrücke: Dart → JavaScript → WebAssembly
 
-Der kritischste architektonische Baustein ist die Laufzeitbrücke zwischen Dart und dem C-Interpreter:
+Das Herzstück der Anwendung ist die direkte Verbindung zwischen Dart und dem C-Interpreter:
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -56,12 +58,12 @@ Der kritischste architektonische Baustein ist die Laufzeitbrücke zwischen Dart 
 └──────────────────────────────────────────────────────┘
 ```
 
-**Ablauf der Trace-Ausführung:**
+**So funktioniert der Trace-Ablauf:**
 
-1. **Eingabeerkennung**: Vor dem Tracing ruft `StepNotifier.startTrace()` via `detectInputsFromC()` die JavaScript-Methode `CRunner.detectInputs()` auf. Erkennt der Tokenizer `scanf()`-Aufrufe, wechselt der Zustandsautomat in `StepStatus.scanfPending` und fordert den Nutzer interaktiv zur Eingabe auf.
-2. **Trace-Generierung**: `CRunner.trace(code, inputs)` kompiliert und führt den C-Code im Wasm-Modul aus und gibt ein strukturiertes JSON-Objekt zurück: pro Ausführungsschritt eine Momentaufnahme des Laufzeitzustands.
-3. **Deserialisierung**: `c_runner_bridge_web.dart` deserialisiert die JavaScript-Objekte via `dart:js_util` (ohne JSON-Roundtrip) in typsichere Dart-Domänenmodelle (`ExecutionStep`, `HeapBlock`, `StackFrame`).
-4. **UI-Synchronisation**: `StepNotifier` verwaltet den diskreten Schritt-Index. Jede Zustandsänderung propagiert reaktiv in alle abhängigen Widgets – ohne manuelles `setState()`.
+1. **Eingabeerkennung**: Vor dem Start des Tracings prüft `StepNotifier.startTrace()` über `detectInputsFromC()`, ob im Quellcode `scanf()`-Aufrufe vorkommen. Ist das der Fall, wechselt der Zustandsautomat in den Status `StepStatus.scanfPending` und fragt die Werte vorab interaktiv beim Nutzer ab.
+2. **Trace-Erstellung**: Die JavaScript-Funktion `CRunner.trace(code, inputs)` lässt das Wasm-Modul den Code ausführen und liefert eine Reihe strukturierter Momentaufnahmen für jeden Schritt zurück.
+3. **Objekt-Konvertierung**: `c_runner_bridge_web.dart` liest die JavaScript-Objekte über `dart:js_util` direkt aus, ohne den Umweg über JSON-Strings zu nehmen, und wandelt sie in typsichere Dart-Modelle um (`ExecutionStep`, `HeapBlock`, `StackFrame`).
+4. **UI-Synchronisation**: Der `StepNotifier` steuert den aktuellen Schritt-Index. Jede Navigation löst gezielte Aktualisierungen in den Flutter-Widgets aus, ohne dass manuelles `setState()` nötig ist.
 
 ### 2.3 Verzeichnisstruktur
 
@@ -121,19 +123,19 @@ lib/
 
 ## 3. Kernfunktionen
 
-- **Echtzeit-Zeiger- & Heap-Graph**: Dynamische Speicherallokation (`malloc`/`free`) wird pro Ausführungsschritt als annotiertes Blockdiagramm visualisiert. Adresse, Größe, Belegungsstatus und Zellinhalte jedes `HeapBlock` sind inspizierbar.
+- **Echtzeit-Zeiger- und Heap-Graph**: Dynamischer Speicher via `malloc` und `free` wird Schritt für Schritt in einem übersichtlichen Diagramm abgebildet. Speicheradresse, Größe, Belegungszustand und die enthaltenen Werte jedes Speicherblocks lassen sich direkt einsehen.
 
-- **Frame-für-Frame-Ausführungssteuerung**: Der integrierte Trace-Player ermöglicht Vorwärts-, Rückwärtsnavigation sowie automatische Wiedergabe mit konfigurierbarem Intervall. Zu jedem Schritt werden Call-Stack-Frames, lokale Variablen und die akkumulierte I/O-Ausgabe synchron dargestellt.
+- **Schrittweise Ausführungssteuerung**: Der Trace-Player bietet Vor- und Zurückspringen sowie automatisches Abspielen mit anpassbarem Zeittakt. Stack Frames, Variablenwerte und Konsolenausgaben aktualisieren sich synchron mit jedem Schritt.
 
-- **Interaktiver C-Code-Editor**: Ein vollständig in Flutter implementierter Editor mit C-spezifischem Syntax-Highlighting, Zeilennummerierung und strukturiertem Fehler-Feedback. Kompilierungsfehler werden mit Zeilennummer, Spalte, Fehlermeldung und einem erklärenden Hinweis (`errorHint`) im UI angezeigt.
+- **Interaktiver C-Editor**: Ein integrierter Editor mit Syntax-Highlighting für C, Zeilennummern und verständlichem Fehler-Feedback. Tritt ein Syntaxfehler auf, zeigt die Oberfläche die genaue Position samt Lösungshinweis an.
 
-- **Scanf-Interaktion zur Laufzeit**: Vor dem Tracing erkennt der Tokenizer `scanf()`-Muster automatisch. Der Zustandsautomat wechselt in einen Eingabe-Modus, sammelt Nutzerwerte und übergibt sie gesammelt an die Wasm-Laufzeitumgebung – ohne Neukompilierung.
+- **Interaktive Scanf-Unterstützung**: Erkennt der Tokenizer Einlesevorgänge mit `scanf()`, fordert die Oberfläche die Eingabewerte vorab an und übergibt sie gesammelt an die Sandbox, ohne dass der Code neu kompiliert werden muss.
 
-- **Sortieralgorithmus-Visualisierung**: Dedizierte Visualisierungs-Engine für gängige Sortier- und Datenstruktur-Algorithmen mit animierten Zustandsübergängen, direkt in die Lernmodule integriert.
+- **Sortieralgorithmen anschaulich visualisiert**: Eigene Module für klassische Sortier- und Datenstrukturen mit flüssigen Animationen, nahtlos eingebettet in die Lernlektionen.
 
-- **Integrierte Lernmodule (Curriculum)**: Strukturiertes Kurssystem mit Lektionen, Fortschrittsverfolgung und Firestore-Persistenz. Unterstützt anonyme Firebase-Authentifizierung und Offline-Caching.
+- **Strukturiertes Lernsystem**: Umfangreiche Lektionen mit Fortschrittsspeicherung in Cloud Firestore. Unterstützt anonyme Firebase-Anmeldung und Offline-Funktionalität.
 
-- **Internationalisierung & Theming**: Vollständige i18n-Unterstützung (ARB-Dateien, `flutter_localizations`), Hell-/Dunkel-Modus sowie reaktives Theme-Switching via Riverpod-Notifier.
+- **Mehrsprachigkeit und Dark Mode**: Vollständige Lokalisierung über ARB-Dateien sowie ein flexibles Farbschema für helle und dunkle Ansichten, dynamisch umschaltbar über Riverpod.
 
 ---
 
@@ -141,19 +143,19 @@ lib/
 
 | Schicht             | Technologie                          | Architektonische Rolle                                                                 |
 |---------------------|--------------------------------------|----------------------------------------------------------------------------------------|
-| **Frontend**        | Flutter 3.x / Dart 3.x              | Plattformübergreifendes UI-Framework; gesamte Präsentationsschicht                    |
-| **Frontend**        | Riverpod 2.x                         | Reaktive Zustandsverwaltung; `StateNotifier`-basierter Zustandsautomat                |
-| **Frontend**        | GoRouter 13.x                        | Deklaratives Routing, URL-basierte Navigation, Guard-Logik                            |
-| **Frontend**        | Freezed / JSON Serializable          | Codegenerierung für unveränderliche Domänenmodelle & typsichere Serialisierung        |
-| **Frontend**        | Google Fonts (Inter, Fira Code)      | Konsistente Typografie; monospaced Font für den Code-Editor                           |
-| **Sandbox / Core**  | WebAssembly (Wasm)                   | Isolierte C-Laufzeitumgebung im Browser; kein Zugriff auf Host-Ressourcen            |
-| **Sandbox / Core**  | JavaScript Interop (`dart:js_util`)  | Typsichere Brücke zwischen Dart und der `window.CRunner` JS-API                      |
-| **Sandbox / Core**  | C (Tokenizer & Interpreter)          | Zu Wasm kompilierter C-Parser; erzeugt strukturierte Ausführungsschritte             |
-| **Backend**         | Firebase Auth                        | Anonyme Authentifizierung; Session-Management ohne Nutzerregistrierung                |
-| **Backend**         | Cloud Firestore                      | Persistenz von Lernfortschritt; Offline-Caching via `persistenceEnabled`              |
-| **Backend**         | Firebase Analytics / Storage         | Nutzungsmetriken, Asset-Verwaltung                                                    |
-| **Build / CI**      | `build_runner`, `riverpod_generator` | Automatisierte Codegenerierung; verhindert manuellen Boilerplate                      |
-| **Build / CI**      | `flutter_lints`                      | Statische Analyse; Durchsetzung von Coding-Standards                                  |
+| **Frontend**        | Flutter 3.x / Dart 3.x              | Plattformübergreifendes UI-Framework für die gesamte Benutzeroberfläche               |
+| **Frontend**        | Riverpod 2.x                         | Reaktive Zustandsverwaltung mit StateNotifier für transparente Zustandsübergänge       |
+| **Frontend**        | GoRouter 13.x                        | Deklaratives Routing, URL-basierte Navigation und Schutz von Routen                   |
+| **Frontend**        | Freezed / JSON Serializable          | Codegenerierung für unveränderliche Datenmodelle und typsichere Serialisierung        |
+| **Frontend**        | Google Fonts (Inter, Fira Code)      | Saubere Typografie und Monospace-Schriftart für den Code-Editor                        |
+| **Sandbox / Core**  | WebAssembly (Wasm)                   | Isolierte C-Laufzeitumgebung im Browser ohne Zugriff auf Host-Ressourcen              |
+| **Sandbox / Core**  | JavaScript Interop (`dart:js_util`)  | Direkte, performante Brücke zwischen Dart und der globalen `CRunner`-API              |
+| **Sandbox / Core**  | C (Tokenizer & Interpreter)          | In Wasm übersetzter Interpreter zur Erzeugung detaillierter Ausführungsschritte       |
+| **Backend**         | Firebase Auth                        | Anonyme Authentifizierung für sofortigen Einstieg ohne Registrierungszwang            |
+| **Backend**         | Cloud Firestore                      | Speicherung des Lernfortschritts inklusive Offline-Unterstützung                      |
+| **Backend**         | Firebase Analytics / Storage         | Nutzungsmetriken und Bereitstellung statischer Assets                                 |
+| **Build / CI**      | `build_runner`, `riverpod_generator` | Automatisierte Codegenerierung zur Vermeidung von manuellem Boilerplate-Code          |
+| **Build / CI**      | `flutter_lints`                      | Statische Code-Analyse zur Sicherung einheitlicher Qualitätsstandards                 |
 
 ---
 
@@ -161,25 +163,25 @@ lib/
 
 ### 5.1 Sprachübergreifende Interoperabilität (Cross-Language Interop)
 
-Die Integration eines Wasm-kompilierten C-Interpreters in eine Flutter-Web-Anwendung erforderte ein tiefes Verständnis der Speicherisolierung zwischen den drei beteiligten Laufzeitumgebungen: Dart VM / JavaScript Engine / WebAssembly Linear Memory. Konkrete Erkenntnisse:
+Die Verknüpfung von Flutter mit einer WebAssembly-basierten C-Umgebung brachte wertvolle Einblicke in die Speicher- und Thread-Isolation zwischen Dart VM, JavaScript Engine und dem linearen Wasm-Speicher:
 
-- **`dart:js_util` ohne JSON-Roundtrip**: Die direkte Traversierung von JavaScript-Objektgraphen via `js_util.getProperty` ist signifikant schneller als das Serialisieren über `JSON.stringify` / `jsonDecode`. Gerade bei großen Trace-Arrays (100+ Schritte) vermeidet dies spürbaren GC-Druck auf der Dart-Seite.
-- **Conditional Imports als Plattformabstraktion**: Das `c_runner_bridge.dart`-Muster mit `_web.dart`- und `_stub.dart`-Implementierungen ermöglicht vollständige statische Analyse auf Non-Web-Targets, ohne plattformspezifischen Code in die Dart-Analyse einzubeziehen.
-- **Fehlertoleranz im Interop-Layer**: Jede `js_util`-Operation ist in `try/catch` gekapselt, da JavaScript-Objekte zur Laufzeit strukturell von der erwarteten Schnittstelle abweichen können. Fehlende Felder werden mit definierten Fallback-Werten behandelt statt mit Exceptions zu propagieren.
+- **Effizientes JS-Bridging ohne JSON-Overhead**: Durch den direkten Zugriff auf JavaScript-Objekte mittels `js_util.getProperty` entfällt das zeitraubende Serialisieren und Parsen großer JSON-Datenmengen. Gerade bei langen Programmläufen mit über hundert Einzelschritten entlastet das den Dart Garbage Collector spürbar.
+- **Saubere Plattformtrennung mit Conditional Imports**: Das Setup mit `c_runner_bridge.dart` sowie den spezifischen Web- und Stub-Dateien stellt sicher, dass die statische Analyse auf allen Plattformen einwandfrei durchläuft, während Web-APIs sauber gekapselt bleiben.
+- **Robuste Fehlerabfangung an der Sprachgrenze**: Da Schnittstellenobjekte aus JavaScript zur Laufzeit unvollständig sein können, fängt die Brücke Unregelmäßigkeiten gezielt ab und setzt definierte Standardwerte ein, anstatt unerwartete Exceptions in die UI weiterzugeben.
 
 ### 5.2 Zustandsgetriebene UI-Synchronisation
 
-Die Abbildung eines sequenziellen, deterministischen Ausführungsmodells auf eine reaktive Flutter-UI erforderte präzises Zustandsdesign:
+Die Abbildung eines linearen Ausführungsablaufs auf eine reaktive Oberfläche erforderte ein durchdachtes Zustandsdesign:
 
-- **Diskreter Zustandsautomat**: `StepStatus` (idle → tracing → scanfPending → paused ↔ playing → error) verhindert undefinierte Zwischenzustände und macht Übergänge explizit und testbar.
-- **Timer-basiertes Auto-Play**: `StepNotifier._schedulePlay()` setzt einen `dart:async`-Timer anstatt einer synchronen Schleife. Dies gibt dem Flutter-Renderer zwischen den Schritten Rechenzeit für das Frame-Rendering zurück und verhindert UI-Jank bei schneller Wiedergabe.
-- **Immutable State + `copyWith`**: Alle Zustandsmutationen erzeugen neue Objekte. Riverpod erkennt Zustandsänderungen durch Referenzvergleich und triggert selektive Widget-Rebuilds – kein globales Neuzeichnen des Widget-Baums.
+- **Eindeutiger Zustandsautomat**: Die Aufteilung in klar definierte Zustände wie `idle`, `tracing`, `scanfPending`, `paused`, `playing` und `error` verhindert ungültige Zwischenschritte und macht die Benutzeroberfläche berechenbar.
+- **Flüssige Wiedergabe ohne Blockieren des UI-Threads**: Die automatische Wiedergabe steuert die Schritte über periodische Timer anstelle einer blockierenden Schleife an. Dadurch behält der Flutter-Renderer stets genug Zeitfenster für flüssige 60-fps-Animationen.
+- **Selektive UI-Updates durch Immutability**: Indem der Zustand unveränderlich gehalten wird, erkennt Riverpod Änderungen direkt per Referenzvergleich. Es werden nur die Widgets neu gezeichnet, deren Daten sich tatsächlich geändert haben.
 
 ### 5.3 Fehlerbehandlung an den Systemgrenzen
 
-- **Strukturierte Fehlerinformation**: Die `ExecutionResult`-Domänenklasse kapselt nicht nur `stderr`-Text, sondern auch `errorLine`, `errorColumn`, `errorHint` und `errorSourceLine`. Der Editor kann damit die fehlerhafte Zeile präzise hervorheben und einen erklärenden Hinweis darstellen.
-- **Darstellung undefinierter C-Zustände**: Szenarien wie Use-after-free, Nullzeiger-Dereferenzierung oder Stack-Überlauf werden im Wasm-Modul abgefangen und als strukturiertes Fehlerobjekt zurückgegeben – kein unbehandelter JavaScript-Absturz erreicht die Flutter-Laufzeitumgebung.
-- **Scanf-Eingabe-Validierung**: Fehlende oder typinkorrekte Eingaben werden vor der Übergabe an die Wasm-Laufzeitumgebung geprüft, um Endlosschleifen oder undefiniertes Verhalten im Interpreter zu verhindern.
+- **Präzise Fehlerlokalisierung**: Das Modell `ExecutionResult` transportiert neben Textausgaben auch konkrete Zeilen- und Spaltenangaben sowie verständliche Erklärungstexte. So kann der Editor Fehlerstellen im Code punktgenau hervorheben.
+- **Sicherer Umgang mit kritischen C-Zuständen**: Typische Speicherfehler wie Nullzeiger-Dereferenzierungen oder unzulässige Speicherzugriffe werden innerhalb der Wasm-Sandbox isoliert abgefangen und als lesbare Statusmeldungen zurückgegeben, wodurch die Host-Anwendung stabil weiterläuft.
+- **Vorabprüfung von Nutzereingaben**: Interaktive Eingaben werden vor der Ausführung validiert, um Endlosschleifen oder unvorhergesehenes Verhalten im Interpreter frühzeitig auszuschließen.
 
 ---
 
@@ -187,12 +189,12 @@ Die Abbildung eines sequenziellen, deterministischen Ausführungsmodells auf ein
 
 | Metrik                              | Ergebnis                                                                                      |
 |-------------------------------------|-----------------------------------------------------------------------------------------------|
-| **Backend-Compute-Kosten**          | **0 €** – vollständig clientseitige C-Ausführung via Wasm-Sandbox                           |
-| **Ausführungslatenz**               | Sofortiges visuelles Feedback; Trace-Generierung typischerweise < 100 ms für kurze Programme |
-| **Plattformabdeckung**              | Desktop (Chrome, Edge, Firefox) & Mobile Web; responsives Layout via Flutter-Constraints     |
-| **Zustandsübergänge**               | Deterministischer Zustandsautomat mit 6 definierten Zuständen; keine Race Conditions         |
-| **Codegenerierungs-Overhead**       | Null zur Laufzeit – Freezed/Riverpod-Generator produziert Build-Zeit-Artefakte               |
-| **Offline-Fähigkeit**               | Firestore Persistence aktiviert; Lernfortschritt auch ohne Netzwerkverbindung verfügbar      |
+| **Backend-Compute-Kosten**          | **0 €**, da die gesamte C-Ausführung vollständig clientseitig in der Wasm-Sandbox stattfindet |
+| **Ausführungslatenz**               | Sofortiges visuelles Feedback, Trace-Erstellung bei typischen Programmen unter 100 ms          |
+| **Plattformunterstützung**          | Desktop (Chrome, Edge, Firefox) und Mobile Web mit responsiven Flutter-Layouts                |
+| **Zustandsübergänge**               | Deterministischer Zustandsautomat mit 6 klaren Zuständen ohne Race Conditions                 |
+| **Laufzeit-Overhead**               | Kein Overhead durch Codegenerierung, da Freezed und Riverpod reine Build-Zeit-Artefakte sind |
+| **Offline-Verfügbarkeit**           | Firestore-Offline-Persistenz aktiv, Lernfortschritt bleibt auch ohne Internetverbindung da    |
 
 ---
 
@@ -201,8 +203,8 @@ Die Abbildung eines sequenziellen, deterministischen Ausführungsmodells auf ein
 ### Voraussetzungen
 
 - [Flutter SDK](https://docs.flutter.dev/get-started/install) ≥ 3.x (Dart ≥ 3.11)
-- Google Chrome (empfohlen für Flutter Web)
-- Firebase-Projekt (optional für Lernfortschritt-Persistenz)
+- Google Chrome (empfohlen für die Web-Entwicklung)
+- Firebase-Projekt (optional für die Synchronisation des Lernfortschritts)
 
 ### Schnellstart
 
@@ -220,22 +222,22 @@ dart run build_runner build --delete-conflicting-outputs
 # 4. Anwendung im Chrome-Browser starten
 flutter run -d chrome
 
-# Produktions-Build erzeugen
+# Produktions-Build für das Web erstellen
 flutter build web --release
 ```
 
-> **Hinweis**: Das Wasm-Modul (`assets/wasm/`) muss im Repository enthalten sein. Das JavaScript-Brücken-Skript `c_runner.js` wird in `web/index.html` geladen und exponiert die globale `window.CRunner`-API, auf die die Dart-Seite via `dart:js_util` zugreift.
+> **Hinweis**: Das Wasm-Modul im Ordner `assets/wasm/` ist integraler Bestandteil des Repositories. Das JavaScript-Skript `c_runner.js` wird über `web/index.html` eingebunden und stellt die globale `window.CRunner`-Schnittstelle bereit, auf die Dart über `dart:js_util` zugreift.
 
-### Firebase-Konfiguration (optional)
+### Optionale Firebase-Einrichtung
 
-Die Datei `lib/firebase_options.dart` enthält die plattformspezifische Firebase-Projektkonfiguration. Für ein eigenes Deployment:
+Die Datei `lib/firebase_options.dart` enthält die Konfiguration für Firebase. Um ein eigenes Backend anzubinden:
 
 ```bash
-# Firebase CLI installieren und einloggen
+# Firebase CLI installieren und anmelden
 npm install -g firebase-tools
 firebase login
 
-# Firebase-Konfiguration für Flutter generieren
+# Konfigurationsdatei für Flutter generieren
 flutterfire configure
 ```
 
@@ -244,3 +246,4 @@ flutterfire configure
 ## Lizenz
 
 Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).
+
